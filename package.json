@@ -1,0 +1,16 @@
+{
+  "name": "dictionary-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start:frontend": "npm run dev --workspace=frontend",
+    "start:backend": "npm start --workspace=backend",
+    "start": "npm run start:frontend & npm run start:backend"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
