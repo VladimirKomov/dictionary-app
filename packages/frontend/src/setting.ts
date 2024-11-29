@@ -1,0 +1,1 @@
+export const backPath = 'http://localhost:5000/';
