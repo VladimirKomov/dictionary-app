@@ -1,23 +1,26 @@
-import './App.css'
-import {Provider} from "react-redux";
+import React, { useState } from "react";
+import { Provider } from "react-redux";
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "@frontend/styles/thems";
+import { GlobalStyles } from "@frontend/styles/GlobalStyles";
 import store from './store/store';
-import SearchBar from './components/SearchBar';
 import ThemeSwitcher from "@frontend/components/ThemeSwitcher";
-import FontSwitcher from "@frontend/components/FontSwitcher";
-
-
-
+import SearchBar from "@frontend/components/SearchBar";
 
 function App() {
+    const [isDark, setIsDark] = useState(false);
 
+    const toggleTheme = () => setIsDark(!isDark);
 
     return (
         <Provider store={store}>
-            <ThemeSwitcher/>
-            <FontSwitcher/>
-            <SearchBar/>
+            <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+                <GlobalStyles />
+                <ThemeSwitcher toggleTheme={toggleTheme} isDark={isDark} />
+                <SearchBar />
+            </ThemeProvider>
         </Provider>
-    )
+    );
 }
 
-export default App
+export default App;

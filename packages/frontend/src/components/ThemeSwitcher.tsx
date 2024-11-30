@@ -1,22 +1,39 @@
 import React from 'react';
+import styled from "styled-components";
 
-const ThemeSwitcher: React.FC = () => {
+const SwitchContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+`;
 
-    const toggleTheme = () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-    };
+const Button = styled.button`
+    background-color: ${({theme}) => theme.text};
+    color: ${({theme}) => theme.background};
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        opacity: 0.8;
+    }
+`;
 
-    React.useEffect(() => {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-    }, []);
+interface ThemeSwitcherProps {
+    toggleTheme: () => void;
+    isDark: boolean;
+}
+
+const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ toggleTheme, isDark }) => {
 
     return (
         <div>
-            <button onClick={toggleTheme}>Toggle Theme</button>
+            <button onClick={toggleTheme}>
+                {isDark ? "Light" : "Dark"}
+            </button>
         </div>
     )
 };
