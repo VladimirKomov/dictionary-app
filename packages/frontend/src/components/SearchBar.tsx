@@ -2,8 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../store/store";
 import {fetchWord, setWord} from "@frontend/store/dictionarySlice";
-
-
+import WordDefinition from "@frontend/components/WordDefinition";
 
 
 const SearchBar: React.FC = () => {
@@ -15,6 +14,14 @@ const SearchBar: React.FC = () => {
     };
 
     const handleSearch = () => {
+        if (loading) {
+            return;
+        }
+        if (!word.trim) {
+            console.log("word is not a string");
+            alert("Please enter a word");
+            return;
+        }
         if (word.trim()) {
             dispatch(fetchWord(word));
         }
@@ -34,12 +41,8 @@ const SearchBar: React.FC = () => {
 
             {error && <p style={{ color: "red" }}>{error}</p>}
 
-            {results && (
-                <div>
-                    <h3>Results for "{word}":</h3>
-                    <pre>{JSON.stringify(results, null, 2)}</pre>
-                </div>
-            )}
+            <WordDefinition word={word} results={results}/>
+
         </div>
     );
 };
