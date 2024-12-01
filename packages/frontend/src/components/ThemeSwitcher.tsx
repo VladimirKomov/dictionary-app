@@ -1,26 +1,7 @@
 import React from 'react';
-import styled from "styled-components";
-
-const SwitchContainer = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px;
-`;
-
-const Button = styled.button`
-    background-color: ${({theme}) => theme.text};
-    color: ${({theme}) => theme.background};
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    
-    &:hover {
-        opacity: 0.8;
-    }
-`;
+import MoonIcon from '../assets/icon-moon.svg';
+import SunIcon from '../assets/icon-sun.svg';
+import {Icon, SwitchContainer, SwitchInput, SwitchLabel, SwitchSlider} from "@frontend/styles/ToggleSwitch";
 
 interface ThemeSwitcherProps {
     toggleTheme: () => void;
@@ -30,11 +11,18 @@ interface ThemeSwitcherProps {
 const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ toggleTheme, isDark }) => {
 
     return (
-        <div>
-            <button onClick={toggleTheme}>
-                {isDark ? "Light" : "Dark"}
-            </button>
-        </div>
+        <SwitchContainer>
+            <Icon>
+                <img src={SunIcon} alt="Sun Icon" />
+            </Icon>
+            <SwitchLabel>
+                <SwitchInput type="checkbox" checked={isDark} onChange={toggleTheme} />
+                <SwitchSlider />
+            </SwitchLabel>
+            <Icon>
+                <img src={MoonIcon} alt="Moon Icon" />
+            </Icon>
+        </SwitchContainer>
     )
 };
 
