@@ -5,6 +5,7 @@ import ThemeSwitcher from "@frontend/components/ThemeSwitcher";
 import {GlobalStyles} from "@frontend/styles/globalStyles";
 import HeaderContainer from "@frontend/styles/HeaderContainer";
 import FontSwitcher from "@frontend/components/FontSwitcher";
+import SearchBar from "@frontend/components/SearchBar";
 
 function App() {
     const [isDark, setIsDark] = useState(false);
@@ -13,13 +14,19 @@ function App() {
     const toggleTheme = () => setIsDark(!isDark);
     const toggleFont = (font: string) => setFont(font);
 
+    const currentTheme = {
+        ...(isDark ? darkTheme : lightTheme),
+        fontFamily: font,
+    };
+
     return (
-        <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <ThemeProvider theme={currentTheme}>
             <GlobalStyles/>
             <HeaderContainer>
                 <FontSwitcher toggleFont={toggleFont} currentFont={font}/>
                 <ThemeSwitcher toggleTheme={toggleTheme} isDark={isDark}/>
             </HeaderContainer>
+            <SearchBar/>
         </ThemeProvider>
     );
 }

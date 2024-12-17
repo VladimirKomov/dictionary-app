@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Select} from "@frontend/styles/FontSwitcher";
 
 interface FontSwitcherProps {
     toggleFont: (font: string) => void;
@@ -9,21 +10,15 @@ const FontSwitcher: React.FC<FontSwitcherProps> = ({ toggleFont, currentFont }) 
 
     return (
         <div>
-            <select
+            <Select
                 id="font-selector"
                 value={currentFont}
                 onChange={(e) => toggleFont(e.target.value)}
-                style={{
-                    padding: '0.5rem',
-                    fontSize: '1rem',
-                    borderRadius: '4px',
-                    border: '1px solid #ccc',
-                }}
             >
                 <option value="sans-serif">Sans-serif</option>
                 <option value="serif">Serif</option>
                 <option value="monospace">Monospace</option>
-            </select>
+            </Select>
         </div>
     )
 };

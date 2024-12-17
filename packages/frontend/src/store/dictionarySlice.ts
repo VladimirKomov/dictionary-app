@@ -1,16 +1,29 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {backPath} from "@frontend/setting";
 
+interface Phonetic {
+    text: string;
+    audio?: string;
+}
 
-interface DictionaryEntry {
+interface Definition {
+    definition: string;
+    example?: string;
+    synonyms: string[];
+    antonyms: string[];
+}
+
+interface Meaning {
+    partOfSpeech: string;
+    definitions: Definition[];
+}
+
+export interface DictionaryEntry {
     word: string;
     phonetic?: string;
-    phonetics: { text: string; audio?: string }[];
-    meanings: {
-        partOfSpeech: string;
-        definitions: { definition: string; example?: string; synonyms: string[]; antonyms: string[] }[];
-    }[];
+    phonetics: Phonetic[];
+    meanings: Meaning[];
 }
 
 interface DictionaryState {
@@ -25,7 +38,7 @@ const initialState: DictionaryState = {
     results: null,
     loading: false,
     error: null,
-}
+};
 
 export const fetchWord = createAsyncThunk<DictionaryEntry[], string, { rejectValue: string }>(
     'dictionary/fetchWord',
@@ -47,9 +60,9 @@ const dictionarySlice = createSlice({
     initialState,
 
     reducers: {
-        setWord: (state, action) => {
+        setWord: (state, action: PayloadAction<string>) => {
             state.word = action.payload;
-        }
+        },
     },
 
     extraReducers: (builder) => {
@@ -57,17 +70,18 @@ const dictionarySlice = createSlice({
             .addCase(fetchWord.pending, (state) => {
                 state.loading = true;
                 state.error = null;
+                state.results = null;
             })
-            .addCase(fetchWord.fulfilled, (state, action) => {
+            .addCase(fetchWord.fulfilled, (state, action: PayloadAction<DictionaryEntry[]>) => {
                 state.loading = false;
                 state.results = action.payload;
             })
             .addCase(fetchWord.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload as string;
-            })
+                state.error = action.payload || 'An unknown error occurred.';
+            });
 
-    }
+    },
 })
 
 export const {setWord} = dictionarySlice.actions;

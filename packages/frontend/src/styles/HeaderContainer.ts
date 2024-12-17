@@ -9,6 +9,7 @@ const HeaderContainer = styled.div`
     max-width: 800px;
     margin: 0 auto;
     padding: 1rem;
+    background-color: ${({ theme }) => theme.background};
 
     @media (max-width: 768px) {
         flex-direction: column;
