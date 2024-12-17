@@ -43,7 +43,7 @@ export const Input = styled.input`
 `;
 
 export const SearchButton = styled.button`
-    //background-color: ${({ theme }) => theme.primary || "#8A2BE2"};
+    background-color: ${({ theme }) => theme.background};
     border: none;
     padding: 0.75rem 1rem;
     border-radius: 0 10px 10px 0;
@@ -52,10 +52,6 @@ export const SearchButton = styled.button`
     align-items: center;
     justify-content: center;
     transition: background 0.3s ease;
-
-    &:hover {
-        background-color: ${({ theme }) => theme.primaryHover || "#6A1BB8"};
-    }
 
     img {
         width: 20px;
