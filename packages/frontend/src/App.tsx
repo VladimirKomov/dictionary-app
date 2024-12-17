@@ -8,14 +8,16 @@ import FontSwitcher from "@frontend/components/FontSwitcher";
 
 function App() {
     const [isDark, setIsDark] = useState(false);
+    const [font, setFont] = useState("sans-serif");
 
     const toggleTheme = () => setIsDark(!isDark);
+    const toggleFont = (font: string) => setFont(font);
 
     return (
         <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
             <GlobalStyles/>
             <HeaderContainer>
-                <FontSwitcher/>
+                <FontSwitcher toggleFont={toggleFont} currentFont={font}/>
                 <ThemeSwitcher toggleTheme={toggleTheme} isDark={isDark}/>
             </HeaderContainer>
         </ThemeProvider>
