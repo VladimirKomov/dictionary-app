@@ -7,3 +7,5 @@ export const darkTheme = {
     background: "#222",
     text: "#fff",
 };
+
+export type ThemeType = typeof lightTheme;

@@ -1,9 +1,10 @@
 import React, {useState} from "react";
-import {GlobalStyles} from "@frontend/styles/GlobalStyles";
-import {CenteredContainer} from "@frontend/styles/AppContainer";
 import {ThemeProvider} from "styled-components";
 import {darkTheme, lightTheme} from "@frontend/styles/themes";
 import ThemeSwitcher from "@frontend/components/ThemeSwitcher";
+import {GlobalStyles} from "@frontend/styles/globalStyles";
+import HeaderContainer from "@frontend/styles/HeaderContainer";
+import FontSwitcher from "@frontend/components/FontSwitcher";
 
 function App() {
     const [isDark, setIsDark] = useState(false);
@@ -13,9 +14,10 @@ function App() {
     return (
         <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
             <GlobalStyles/>
-            <CenteredContainer>
+            <HeaderContainer>
+                <FontSwitcher/>
                 <ThemeSwitcher toggleTheme={toggleTheme} isDark={isDark}/>
-            </CenteredContainer>
+            </HeaderContainer>
         </ThemeProvider>
     );
 }
