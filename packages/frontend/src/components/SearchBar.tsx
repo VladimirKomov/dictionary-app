@@ -9,11 +9,12 @@ import {
     SearchButton,
 } from "../styles/SearchBar";
 import searchIcon from "../assets/icon-search.svg";
+import WordDefinition from "@frontend/components/WordDefinition";
 
 
 const SearchBar: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { word, loading } = useSelector((state: RootState) => state.dictionary);
+    const { word, results, loading } = useSelector((state: RootState) => state.dictionary);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setWord(e.target.value));
@@ -28,6 +29,7 @@ const SearchBar: React.FC = () => {
     };
 
     return (
+        <>
         <SearchContainer>
             <SearchBox>
                 <Input
@@ -41,7 +43,8 @@ const SearchBar: React.FC = () => {
                 </SearchButton>
             </SearchBox>
         </SearchContainer>
-
+        <WordDefinition word={word} results={results}/>
+        </>
     );
 };
 
